@@ -40,12 +40,10 @@ public abstract class Conta implements IConta {
         contaDestino.depositar(valor);
     }
 
-    public String imprimirInfosComuns() {
-        return "Conta{" +
-                "cliente=" + cliente +
-                ", numero=" + numero +
-                ", saldo=" + saldo +
-                ", agencia=" + agencia +
-                '}';
+    public void imprimirInfosComuns() {
+        System.out.printf("Titular: %s%n", this.cliente.getNome());
+        System.out.printf("Agencia: %d%n", this.agencia);
+        System.out.printf("Numero: %d%n", this.numero);
+        System.out.printf("Saldo: %.2f%n", this.saldo);
     }
 }
