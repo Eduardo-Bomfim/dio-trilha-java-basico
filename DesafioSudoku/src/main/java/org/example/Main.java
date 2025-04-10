@@ -142,11 +142,34 @@ public class Main {
         }
 
         System.out.println("O jogo atualmente esta em: " + board.getStatus().getLabel());
+        if(board.hasErrors()){
+            System.out.println("O jogo atualmente esta com erros!");
+        } else {
+            System.out.println("O jogo atualmente não contém erros!");
+        }
     }
 
 
 
     private static void clearGame() {
+
+        if(isNull(board)){
+            System.out.println("O jogo não foi iniciado!");
+            return;
+        }
+
+        System.out.println("Tem certeza que deseja limpar o tabuleiro? (S/N)");
+        var confirm = sc.next();
+
+        while (!confirm.equalsIgnoreCase("s") || confirm.equalsIgnoreCase("S") && !confirm.equalsIgnoreCase("n") || confirm.equalsIgnoreCase("N")) {
+            System.out.println("Informe (S/N)");
+            confirm = sc.next();
+        }
+
+        if (confirm.equalsIgnoreCase("s") || confirm.equalsIgnoreCase("S")) {
+            board.reset();
+            System.out.println("Tabuleiro limpo!");
+        }
     }
 
     private static void finishGame() {
