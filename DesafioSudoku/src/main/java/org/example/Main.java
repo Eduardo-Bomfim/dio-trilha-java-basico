@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.model.Board;
 import org.example.model.Space;
+import org.example.utils.BoardTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.stream.Stream;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.example.utils.BoardTemplate.Board_Complete;
 
 public class Main {
 
@@ -26,7 +28,9 @@ public class Main {
                         k -> k.split(":")[0],
                         v -> Integer.parseInt(v.split(":")[1])
                 ));
+
         var option = -1;
+
         while (true){
             System.out.println("Selecione uma das opcoes abaixo: ");
             System.out.println("1 - Iniciar um novo jogo");
@@ -113,6 +117,22 @@ public class Main {
     }
 
     private static void showCurrentGame() {
+
+        if(isNull(board)){
+            System.out.println("O jogo nao foi iniciado!");
+            return;
+        }
+
+        var args = new Object[81];
+        var argsPos = 0;
+        for (int i = 0; i < BOARD_LIMITS; i++) {
+            for (var col : board.getSpaces()) {
+                args[argsPos++] = " " + ((isNull(col.get(i).getActual())) ? " " : col.get(i).getActual());
+            }
+        }
+
+        System.out.println("Seu jogo se encontra da seguinte forma: ");
+        System.out.printf((Board_Complete) + "\n", args);
     }
 
     private static void showGameStatus() {
