@@ -2,7 +2,6 @@ package org.example;
 
 import org.example.model.Board;
 import org.example.model.Space;
-import org.example.utils.BoardTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -173,7 +172,20 @@ public class Main {
     }
 
     private static void finishGame() {
+        if (isNull(board)) {
+            System.out.println("O jogo nao foi iniciado!");
+            return;
+        }
 
+        if (board.isCompleted()) {
+            System.out.println("O jogo foi finalizado com sucesso!");
+            showCurrentGame();
+            board = null;
+        } else if (board.hasErrors()){
+            System.out.println("O jogo atualmente esta com erros, vericar o tabuleiro!");
+        }else {
+            System.out.println("Você deve preencher o tabuleiro para finalizar o jogo!");
+        }
     }
 
     private static int runUntilGetInvalidNumber(final int min, final int max) {
