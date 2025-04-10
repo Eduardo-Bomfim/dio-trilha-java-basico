@@ -10,6 +10,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 public class Main {
@@ -79,10 +80,25 @@ public class Main {
 
     private static void inputNumber() {
 
+        if (isNull(board)){
+            System.out.println("O jogo nao foi iniciado!");
+            return;
+        }
 
+        System.out.println("Informe o numero a ser colocado na coluna:");
+        var column = runUntilGetInvalidNumber(0, 8);
+        System.out.println("Informe o numero a ser colocado na linha:");
+        var row = runUntilGetInvalidNumber(0, 8);
+        System.out.printf("\nInforme o numero a ser colocado na casa [%s, %s]:\n", column, row);
+        var value = runUntilGetInvalidNumber(1, 9);
+        if(!board.changeValue(column, row, value)){
+            System.out.printf("A casa [%s, %s] ja foi preenchida!\n", column, row);            return;
+        }
     }
 
     private static void removeNumber() {
+
+
     }
 
     private static void showCurrentGame() {
@@ -97,4 +113,23 @@ public class Main {
     private static void finishGame() {
 
     }
+
+    private static int runUntilGetInvalidNumber(final int min, final int max) {
+        int current;
+
+        while (true) {
+            System.out.printf("Informe um número entre %d e %d: ", min, max);
+
+            if (sc.hasNextInt()) {
+                current = sc.nextInt();
+                if (current >= min && current <= max) {
+                    return current;
+                }
+            } else {
+                System.out.println("Entrada inválida! Digite apenas números.");
+                sc.next();
+            }
+        }
+    }
+
 }
