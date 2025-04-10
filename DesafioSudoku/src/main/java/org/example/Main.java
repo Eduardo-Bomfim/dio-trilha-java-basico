@@ -136,7 +136,15 @@ public class Main {
     }
 
     private static void showGameStatus() {
+        if(isNull(board)){
+            System.out.println("O jogo nao foi iniciado!");
+            return;
+        }
+
+        System.out.println("O jogo atualmente esta em: " + board.getStatus().getLabel());
     }
+
+
 
     private static void clearGame() {
     }
