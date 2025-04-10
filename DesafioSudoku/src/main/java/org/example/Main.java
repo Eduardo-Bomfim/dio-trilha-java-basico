@@ -98,7 +98,18 @@ public class Main {
 
     private static void removeNumber() {
 
+        if (isNull(board)){
+            System.out.println("O jogo nao foi iniciado!");
+            return;
+        }
 
+        System.out.println("Informe o numero a ser removido na coluna:");
+        var column = runUntilGetInvalidNumber(0, 8);
+        System.out.println("Informe o numero a ser removido na linha:");
+        var row = runUntilGetInvalidNumber(0, 8);
+        if(!board.clearValue(column, row)){
+            System.out.printf("A casa [%s, %s]tem um valor fixo foi limpada!", column, row);
+        }
     }
 
     private static void showCurrentGame() {
