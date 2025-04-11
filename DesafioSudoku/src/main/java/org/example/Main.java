@@ -172,7 +172,6 @@ public class Main {
         }
     }
 
-
     private static void finishGame() {
         if (isNull(board)) {
             System.out.println("O jogo nao foi iniciado!");
