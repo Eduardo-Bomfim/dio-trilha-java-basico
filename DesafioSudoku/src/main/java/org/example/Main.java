@@ -95,7 +95,7 @@ public class Main {
         System.out.printf("\nInforme o numero a ser colocado na casa [%s, %s]:\n", column, row);
         var value = runUntilGetInvalidNumber(1, 9);
         if(!board.changeValue(column, row, value)){
-            System.out.printf("A casa [%s, %s] ja foi preenchida!\n", column, row);            return;
+            System.out.printf("A casa [%s, %s] ja foi preenchida!\n", column, row);
         }
     }
 
@@ -111,7 +111,7 @@ public class Main {
         System.out.println("Informe o numero a ser removido na linha:");
         var row = runUntilGetInvalidNumber(0, 8);
         if(!board.clearValue(column, row)){
-            System.out.printf("A casa [%s, %s]tem um valor fixo foi limpada!", column, row);
+            System.out.printf("\nA casa [%s, %s]tem um valor fixo e não pode ser limpada!\n", column, row);
         }
     }
 
@@ -149,25 +149,29 @@ public class Main {
     }
 
     private static void clearGame() {
-
-        if(isNull(board)){
+        if (isNull(board)) {
             System.out.println("O jogo não foi iniciado!");
             return;
         }
 
         System.out.println("Tem certeza que deseja limpar o tabuleiro? (S/N)");
-        var confirm = sc.next();
+        String confirm = sc.next();
 
-        while (!confirm.equalsIgnoreCase("s") || confirm.equalsIgnoreCase("S") && !confirm.equalsIgnoreCase("n") || confirm.equalsIgnoreCase("N")) {
-            System.out.println("Informe (S/N)");
+        // Enquanto a entrada NÃO for "S" e NÃO for "N", continuar pedindo entrada válida.
+        while (!confirm.equalsIgnoreCase("s") && !confirm.equalsIgnoreCase("n")) {
+            System.out.println("Entrada inválida! Informe apenas (S/N)");
             confirm = sc.next();
         }
 
-        if (confirm.equalsIgnoreCase("s") || confirm.equalsIgnoreCase("S")) {
+        // Se confirmou, limpa o tabuleiro
+        if (confirm.equalsIgnoreCase("s")) {
             board.reset();
             System.out.println("Tabuleiro limpo!");
+        } else {
+            System.out.println("Ação cancelada.");
         }
     }
+
 
     private static void finishGame() {
         if (isNull(board)) {
