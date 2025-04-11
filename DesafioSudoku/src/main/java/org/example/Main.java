@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static java.util.stream.Collectors.toMap;
 import static org.example.utils.BoardTemplate.Board_Complete;
 
 public class Main {
@@ -23,9 +23,9 @@ public class Main {
     public static void main(String[] args) {
 
         final var positions = Stream.of(args)
-                .collect(Collectors.toMap(
-                        k -> k.split(":")[0],
-                        v -> Integer.parseInt(v.split(":")[1])
+                .collect(toMap(
+                        k -> k.split(";")[0],
+                        v -> v.split(";")[1]
                 ));
 
         var option = -1;
@@ -59,7 +59,7 @@ public class Main {
 
     }
 
-    private static void startGame(Map<String, Integer> positions) {
+    private static void startGame(Map<String, String> positions) {
         if (nonNull(board)){
             System.out.println("O jogo ja foi iniciado!");
             return;
@@ -147,8 +147,6 @@ public class Main {
             System.out.println("O jogo atualmente não contém erros!");
         }
     }
-
-
 
     private static void clearGame() {
 

@@ -25,9 +25,10 @@ public class Board {
     }
 
     public boolean hasErrors() {
-        if (getStatus() != GameStatusEnum.NON_STARTED) return false;
+        if (getStatus() == GameStatusEnum.NON_STARTED) return false;
 
-        return spaces.stream().flatMap(Collection::stream).anyMatch(s -> nonNull(s.getActual()) && !s.getActual().equals(s.getExpected()));
+        return spaces.stream().flatMap(Collection::stream)
+                .anyMatch(s -> nonNull(s.getActual()) && !s.getActual().equals(s.getExpected()));
     }
 
     public boolean changeValue(final int column, final int row, final Integer value) {
