@@ -3,6 +3,8 @@ package org.example.ui.custom.input;
 import org.example.model.Space;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 public class NumberText extends JTextField {
@@ -23,5 +25,31 @@ public class NumberText extends JTextField {
         if (space.isFixed()) {
             this.setText(space.getActual().toString());
         }
+
+        this.getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                changeSpace();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                changeSpace();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                changeSpace();
+            }
+        });
+    }
+
+    private void changeSpace() {
+        if (getText().isEmpty()) {
+            space.clearSpace();
+            return;
+        }
+        space.setActual(Integer.parseInt(getText()));
     }
 }
