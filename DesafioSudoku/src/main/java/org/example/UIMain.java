@@ -2,17 +2,23 @@ package org.example;
 
 import org.example.ui.custom.frame.MainFrame;
 import org.example.ui.custom.panel.MainPanel;
+import org.example.ui.custom.screen.MainScreen;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toMap;
 
 public class UIMain {
 
     public static void main(String []args){
-        var dimensions = new Dimension(600, 600);
-        JPanel jPanel = new MainPanel(dimensions);
-        JFrame jFrame = new MainFrame(dimensions, jPanel);
-        jFrame.revalidate();
-        jFrame.repaint();
+        final var positions = Stream.of(args)
+                .collect(toMap(
+                        k -> k.split(";")[0],
+                        v -> v.split(";")[1]
+                ));
+        var mainScreen = new MainScreen(positions);
+        mainScreen.buildMainScreen();
     }
 }

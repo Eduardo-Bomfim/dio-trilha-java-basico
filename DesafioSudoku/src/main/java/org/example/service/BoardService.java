@@ -27,6 +27,10 @@ public class BoardService {
         board.reset();
     }
 
+    public boolean hasErrors() {
+        return board.hasErrors();
+    }
+
     public GameStatusEnum getStatus() {
         return board.getStatus();
     }
