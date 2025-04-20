@@ -42,8 +42,8 @@ public class MainScreen {
             var endrow = r + 2;
             for (int c = 0; c < 9; c+=3) {
                 var endcol = c + 2;
-                var spaces = generateSpaces(boardService.getSpaces(), c, endcol, r, endrow);
-                JPanel sector = generateSector(spaces);
+                var spaces = getSpacesFromSector(boardService.getSpaces(), c, endcol, r, endrow);
+                JPanel sector = generateSection(spaces);
                 mainPanel.add(sector);
             }
         }
@@ -103,20 +103,20 @@ public class MainScreen {
         mainPanel.add(finishButton);
     }
 
-    private JPanel generateSector(final List<Space> spaces) {
+    private JPanel generateSection(final List<Space> spaces) {
         List<NumberText> fields = new ArrayList<>(spaces.stream().map(NumberText::new).toList());
         fields.forEach(f -> notifierService.subscribe(EventEnum.CLEAR_SPACE, f));
         return new SudokuSector(fields);
     }
 
-    private List<Space> generateSpaces(final List<List<Space>> spaces,
-                                       final int initCol, final int endCol,
-                                       final int initRow, final int endRow) {
+    private List<Space> getSpacesFromSector(final List<List<Space>> spaces,
+                                            final int initCol, final int endCol,
+                                            final int initRow, final int endRow) {
 
         List<Space> newSpaces = new ArrayList<>();
         for (int r = initRow; r <= endRow; r++) {
             for (int c = initCol; c <= endCol; c++) {
-                newSpaces.add(spaces.get(r).get(c));
+                newSpaces.add(spaces.get(c).get(r));
             }
         }
 
